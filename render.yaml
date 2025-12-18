@@ -1,10 +1,13 @@
-# File: render.yaml - Configurazione per deploy su Render
+# File: render.yaml - CONFIGURAZIONE CORRETTA
 services:
   - type: web
     name: tombola-natalizia
     env: node
-    buildCommand: npm run install-all && npm run build
-    startCommand: npm start
+    rootDirectory: .
+    buildCommand: |
+      npm install
+      cd client && npm install && npm run build
+    startCommand: node server/index.js
     envVars:
       - key: NODE_ENV
         value: production
