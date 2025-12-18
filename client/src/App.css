@@ -1,0 +1,73 @@
+/* File: client/src/App.css - Stili aggiuntivi */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f3c2d 0%, #1a472a 100%);
+}
+
+/* Animazioni per numeri estratti */
+@keyframes numberExtracted {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.extracted {
+  animation: numberExtracted 0.5s ease;
+}
+
+/* Decorazioni natalizie */
+.christmas-decoration {
+  position: fixed;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.snowflake {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .PlayerContent {
+    grid-template-columns: 1fr;
+  }
+  
+  .GameInfo {
+    grid-template-columns: 1fr;
+  }
+  
+  .BoardGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .ChristmasTitle {
+    font-size: 2rem;
+  }
+}
+
+/* Stili per la tombola */
+.tombola-winner {
+  background: gold !important;
+  color: #b22222 !important;
+  font-weight: bold;
+  border: 3px solid #b22222;
+}
+
+.winning-row {
+  background: rgba(76, 175, 80, 0.2) !important;
+}
