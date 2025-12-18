@@ -1,4 +1,3 @@
-// File: client/src/index.js - Punto di ingresso React
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
