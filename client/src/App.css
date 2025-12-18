@@ -1,4 +1,6 @@
-/* File: client/src/App.css - Stili aggiuntivi */
+/* File: client/src/App.css - Stili principali */
+
+/* Reset e stili base */
 * {
   margin: 0;
   padding: 0;
@@ -6,68 +8,1879 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0f3c2d 0%, #1a472a 100%);
+  font-family: 'Merriweather', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Animazioni per numeri estratti */
-@keyframes numberExtracted {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.extracted {
-  animation: numberExtracted 0.5s ease;
-}
-
-/* Decorazioni natalizie */
-.christmas-decoration {
-  position: fixed;
-  z-index: -1;
-  opacity: 0.1;
-}
-
-.snowflake {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(100vh);
+/* Animazioni */
+@keyframes flash {
+  0%, 100% { 
+    background-color: #ffeb3b !important;
+    border-color: #ff9800 !important;
+    box-shadow: 0 0 15px #ffeb3b;
+    transform: scale(1.05);
   }
+  50% { 
+    background-color: #fff59d !important;
+    border-color: #ffb74d !important;
+    box-shadow: 0 0 25px #ffeb3b;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes christmasLights {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0.7; }
+  50% { opacity: 0.4; }
+  75% { opacity: 0.7; }
+}
+
+/* Classi di utilità */
+.flash-animation {
+  animation: flash 1s infinite;
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+.bounce-animation {
+  animation: bounce 1s infinite;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+.christmas-lights {
+  animation: christmasLights 2s infinite;
+}
+
+/* Scrollbar personalizzata */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #2d5a27, #4CAF50);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #1a472a, #2d5a27);
+}
+
+/* Selezione del testo */
+::selection {
+  background: rgba(76, 175, 80, 0.3);
+  color: #2d5a27;
+}
+
+/* Focus visible per accessibilità */
+:focus-visible {
+  outline: 3px solid #4CAF50;
+  outline-offset: 2px;
+}
+
+/* Stili per i tooltip */
+[title] {
+  position: relative;
+  cursor: help;
+}
+
+[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+/* Stili per le notifiche */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border-left: 5px solid #4CAF50;
+  z-index: 10000;
+  animation: slideIn 0.3s ease-out;
+  max-width: 300px;
+}
+
+.notification.error {
+  border-left-color: #f44336;
+}
+
+.notification.warning {
+  border-left-color: #ff9800;
+}
+
+.notification.success {
+  border-left-color: #4CAF50;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-out;
+  border: 4px solid #c41e3a;
 }
 
 /* Responsive design */
+@media (max-width: 1200px) {
+  .container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  .PlayerContent {
+  .grid-3 {
     grid-template-columns: 1fr;
   }
   
-  .GameInfo {
-    grid-template-columns: 1fr;
+  h1 {
+    font-size: 1.8rem !important;
   }
   
-  .BoardGrid {
-    grid-template-columns: repeat(5, 1fr);
+  h2 {
+    font-size: 1.5rem !important;
   }
   
-  .ChristmasTitle {
-    font-size: 2rem;
+  .modal-content {
+    padding: 20px;
+    width: 95%;
   }
 }
 
-/* Stili per la tombola */
-.tombola-winner {
-  background: gold !important;
-  color: #b22222 !important;
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .notification {
+    left: 10px;
+    right: 10px;
+    max-width: none;
+  }
+}
+
+/* Stili per stampa */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .card-grid, .board-grid {
+    break-inside: avoid;
+  }
+}
+
+/* Classi di supporto per React */
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* Transizioni */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+/* Stili per i pulsanti di stato */
+.status-button {
+  transition: all 0.3s ease;
+}
+
+.status-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.status-button:active {
+  transform: translateY(0);
+}
+
+/* Stili per le celle disabilitate */
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+/* Stili per i badge */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
   font-weight: bold;
-  border: 3px solid #b22222;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.winning-row {
-  background: rgba(76, 175, 80, 0.2) !important;
+.badge-primary {
+  background: #4CAF50;
+  color: white;
 }
+
+.badge-secondary {
+  background: #2196F3;
+  color: white;
+}
+
+.badge-success {
+  background: #4CAF50;
+  color: white;
+}
+
+.badge-danger {
+  background: #f44336;
+  color: white;
+}
+
+.badge-warning {
+  background: #ff9800;
+  color: white;
+}
+
+.badge-info {
+  background: #00bcd4;
+  color: white;
+}
+
+/* Stili per le card */
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+/* Effetti hover per le celle della tombola */
+.tombola-cell {
+  transition: all 0.2s ease;
+}
+
+.tombola-cell:hover {
+  z-index: 10;
+}
+
+/* Stili per le animazioni di vittoria */
+.win-celebration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100000;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f00;
+  animation: confetti-fall 5s linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Stili per i messaggi del sistema */
+.system-message {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  animation: fadeIn 0.5s ease;
+}
+
+.system-message.success {
+  background: #e8f5e8;
+  border-left-color: #4CAF50;
+}
+
+.system-message.error {
+  background: #ffebee;
+  border-left-color: #f44336;
+}
+
+.system-message.warning {
+  background: #fff3e0;
+  border-left-color: #ff9800;
+}
+
+/* Stili per gli indicatori di caricamento */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Stili per i bordi natalizi */
+.christmas-border {
+  border: 3px solid;
+  border-image: linear-gradient(45deg, #c41e3a, #2d5a27, #ff9800) 1;
+  border-radius: 10px;
+  position: relative;
+}
+
+.christmas-border::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #c41e3a, #2d5a27, #ff9800);
+  border-radius: 15px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+/* Stili per i numeri grandi */
+.big-number {
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  color: #c41e3a;
+}
+
+@media (max-width: 768px) {
+  .big-number {
+    font-size: 3rem;
+  }
+}
+
+/* Stili per le etichette */
+.label {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.label-online {
+  background: #4CAF50;
+  color: white;
+}
+
+.label-offline {
+  background: #9e9e9e;
+  color: white;
+}
+
+.label-admin {
+  background: #ff9800;
+  color: white;
+}
+
+.label-player {
+  background: #2196F3;
+  color: white;
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+.d-flex { display: flex; }
+.flex-column { flex-direction: column; }
+.justify-center { justify-content: center; }
+.align-center { align-items: center; }
+.flex-wrap { flex-wrap: wrap; }
+
+.w-100 { width: 100%; }
+.h-100 { height: 100%; }
+
+.position-relative { position: relative; }
+.position-absolute { position: absolute; }
+
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+.user-select-none { user-select: none; }
+
+.rounded { border-radius: 0.5rem; }
+.rounded-circle { border-radius: 50%; }
+
+.shadow { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.shadow-lg { box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+.shadow-xl { box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+
+.bg-primary { background: #4CAF50; color: white; }
+.bg-secondary { background: #2196F3; color: white; }
+.bg-success { background: #4CAF50; color: white; }
+.bg-danger { background: #f44336; color: white; }
+.bg-warning { background: #ff9800; color: white; }
+.bg-info { background: #00bcd4; color: white; }
+.bg-light { background: #f5f5f5; color: #333; }
+.bg-dark { background: #333; color: white; }
+
+.text-primary { color: #4CAF50; }
+.text-secondary { color: #2196F3; }
+.text-success { color: #4CAF50; }
+.text-danger { color: #f44336; }
+.text-warning { color: #ff9800; }
+.text-info { color: #00bcd4; }
+.text-light { color: #f5f5f5; }
+.text-dark { color: #333; }
+.text-white { color: white; }
+.text-muted { color: #666; }
+
+.font-small { font-size: 0.875rem; }
+.font-normal { font-size: 1rem; }
+.font-large { font-size: 1.25rem; }
+.font-xl { font-size: 1.5rem; }
+.font-xxl { font-size: 2rem; }
+
+.font-weight-normal { font-weight: 400; }
+.font-weight-bold { font-weight: 700; }
+.font-weight-bolder { font-weight: 900; }
+
+.text-uppercase { text-transform: uppercase; }
+.text-lowercase { text-transform: lowercase; }
+.text-capitalize { text-transform: capitalize; }
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+
+@media (max-width: 768px) {
+  .d-none-mobile { display: none; }
+  .d-block-mobile { display: block; }
+}
+
+@media (min-width: 769px) {
+  .d-none-desktop { display: none; }
+  .d-block-desktop { display: block; }
+}
+
+/* Stili specifici per la tombola */
+.tombola-board {
+  background: white;
+  border: 4px solid #c41e3a;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.tombola-board::before {
+  content: '🎄';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  font-size: 2rem;
+  z-index: 1;
+}
+
+.tombola-board::after {
+  content: '🎅';
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  font-size: 2rem;
+  z-index: 1;
+}
+
+.tombola-card {
+  background: #fff8e1;
+  border: 3px solid #2d5a27;
+  border-radius: 10px;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tombola-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 235, 59, 0.1) 50%, transparent 70%);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Stili per le vittorie */
+.win-ambo { border-color: #4CAF50 !important; }
+.win-terno { border-color: #2196F3 !important; }
+.win-quaterna { border-color: #9C27B0 !important; }
+.win-cinquina { border-color: #FF9800 !important; }
+.win-tombola { border-color: #c41e3a !important; }
+
+/* Effetti speciali per la tombola */
+.tombola-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000000;
+  background: radial-gradient(circle, transparent 50%, rgba(255, 235, 59, 0.3) 100%);
+  animation: tombolaGlow 2s infinite alternate;
+}
+
+@keyframes tombolaGlow {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+/* Audio controls (se aggiungi suoni) */
+.audio-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.audio-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.audio-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.audio-button:active {
+  transform: scale(0.95);
+}
+
+/* Stili per il tema natalizio */
+.christmas-bg {
+  background: linear-gradient(135deg, 
+    #0f3c2d 0%, 
+    #1a472a 25%, 
+    #2d5a27 50%, 
+    #1a472a 75%, 
+    #0f3c2d 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.christmas-lights-border {
+  border: 3px solid;
+  border-image: 
+    repeating-linear-gradient(
+      45deg,
+      #c41e3a,
+      #c41e3a 10px,
+      #2d5a27 10px,
+      #2d5a27 20px,
+      #ffeb3b 20px,
+      #ffeb3b 30px
+    ) 1;
+  border-radius: 10px;
+  animation: christmasLights 3s infinite;
+}
+
+/* Pulsanti natalizi */
+.christmas-button {
+  background: linear-gradient(45deg, #c41e3a, #ff4444);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.christmas-button::before {
+  content: '🎄';
+  position: absolute;
+  left: 10px;
+  opacity: 0.5;
+}
+
+.christmas-button::after {
+  content: '🎅';
+  position: absolute;
+  right: 10px;
+  opacity: 0.5;
+}
+
+.christmas-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
+}
+
+.christmas-button:active {
+  transform: translateY(0);
+}
+
+/* Tooltip migliorato */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Animazione per i nuovi giocatori */
+.new-player {
+  animation: newPlayerEntry 0.5s ease-out;
+}
+
+@keyframes newPlayerEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Effetto per i numeri che stanno per essere estratti */
+.upcoming-number {
+  background: linear-gradient(45deg, #fff8e1, #ffecb3) !important;
+  border-color: #ffb74d !important;
+  animation: upcomingPulse 2s infinite;
+}
+
+@keyframes upcomingPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* Stili per le statistiche */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-top: 4px solid #4CAF50;
+}
+
+.stat-card .stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d5a27;
+  margin: 10px 0;
+}
+
+.stat-card .stat-label {
+  color: #666;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Stili per il contatore */
+.counter {
+  display: inline-block;
+  padding: 5px 15px;
+  background: #c41e3a;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  animation: counterPulse 2s infinite;
+}
+
+@keyframes counterPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Stili per i messaggi di chat */
+.chat-message {
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-radius: 10px;
+  background: #f5f5f5;
+  animation: messageAppear 0.3s ease-out;
+}
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.chat-message.system {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+}
+
+.chat-message.win {
+  background: #e8f5e8;
+  border-left: 4px solid #4CAF50;
+}
+
+/* Stili per i premi */
+.prize-tier {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+.prize-tier.unlocked {
+  background: #e8f5e8;
+  border-left: 4px solid #4CAF50;
+}
+
+.prize-tier.locked {
+  background: #f5f5f5;
+  border-left: 4px solid #9e9e9e;
+  opacity: 0.7;
+}
+
+.prize-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.prize-tier.unlocked .prize-icon {
+  background: #4CAF50;
+  color: white;
+}
+
+.prize-tier.locked .prize-icon {
+  background: #9e9e9e;
+  color: white;
+}
+
+/* Stili per la leaderboard */
+.leaderboard {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.leaderboard-item:hover {
+  background: #f9f9f9;
+  transform: translateX(5px);
+}
+
+.leaderboard-item:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-rank {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #4CAF50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.leaderboard-rank.gold {
+  background: #ffd700;
+}
+
+.leaderboard-rank.silver {
+  background: #c0c0c0;
+}
+
+.leaderboard-rank.bronze {
+  background: #cd7f32;
+}
+
+/* Stili per il timer */
+.timer {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #c41e3a;
+  padding: 10px 20px;
+  background: white;
+  border-radius: 10px;
+  border: 3px solid #c41e3a;
+  display: inline-block;
+  animation: timerPulse 1s infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(196, 30, 58, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(196, 30, 58, 0.5); }
+}
+
+/* Stili per i badge di connessione */
+.connection-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.connection-badge.connected {
+  background: #e8f5e8;
+  color: #2d5a27;
+}
+
+.connection-badge.disconnected {
+  background: #ffebee;
+  color: #c41e3a;
+}
+
+.connection-badge.connecting {
+  background: #fff3e0;
+  color: #ff9800;
+}
+
+/* Stili per gli avvisi */
+.alert {
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  border-left: 4px solid;
+  animation: slideIn 0.3s ease-out;
+}
+
+.alert-info {
+  background: #e3f2fd;
+  border-left-color: #2196F3;
+}
+
+.alert-success {
+  background: #e8f5e8;
+  border-left-color: #4CAF50;
+}
+
+.alert-warning {
+  background: #fff3e0;
+  border-left-color: #ff9800;
+}
+
+.alert-danger {
+  background: #ffebee;
+  border-left-color: #f44336;
+}
+
+/* Stili per le icone */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-large {
+  width: 32px;
+  height: 32px;
+}
+
+/* Stili per le tabelle */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.table th {
+  background: #f5f5f5;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.table tr:hover {
+  background: #f9f9f9;
+}
+
+.table-striped tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* Stili per i form */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.form-control.error {
+  border-color: #f44336;
+}
+
+.form-text {
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.form-text.error {
+  color: #f44336;
+}
+
+/* Stili per i gruppi di pulsanti */
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button-group.vertical {
+  flex-direction: column;
+}
+
+/* Stili per i badge di stato */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.online {
+  background: #4CAF50;
+  color: white;
+}
+
+.status-badge.offline {
+  background: #9e9e9e;
+  color: white;
+}
+
+.status-badge.playing {
+  background: #2196F3;
+  color: white;
+}
+
+.status-badge.waiting {
+  background: #ff9800;
+  color: white;
+}
+
+.status-badge.finished {
+  background: #f44336;
+  color: white;
+}
+
+/* Stili per i progress bar */
+.progress {
+  height: 10px;
+  background: #f5f5f5;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(45deg, #4CAF50, #2d5a27);
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+/* Stili per i carousel */
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-slide {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.carousel-slide.active {
+  display: block;
+}
+
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: #4CAF50;
+  transform: scale(1.2);
+}
+
+/* Stili per i tabs */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab:hover {
+  color: #4CAF50;
+}
+
+.tab.active {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #4CAF50;
+}
+
+/* Stili per i dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  padding: 10px 20px;
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 200px;
+  z-index: 1000;
+  display: none;
+}
+
+.dropdown-menu.show {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: #f5f5f5;
+}
+
+/* Stili per i modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-dialog {
+  background: white;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 20px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Stili per i tooltip avanzati */
+.advanced-tooltip {
+  position: relative;
+}
+
+.advanced-tooltip .tooltip-content {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1000;
+  background: #333;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  width: max-content;
+  max-width: 300px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.advanced-tooltip:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.advanced-tooltip.top .tooltip-content {
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.advanced-tooltip.bottom .tooltip-content {
+  top: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.advanced-tooltip.left .tooltip-content {
+  right: 125%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.advanced-tooltip.right .tooltip-content {
+  left: 125%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Stili per le notifiche push */
+.push-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 15px;
+  max-width: 300px;
+  z-index: 10000;
+  animation: slideIn 0.3s ease;
+  border-left: 4px solid;
+}
+
+.push-notification.success {
+  border-left-color: #4CAF50;
+}
+
+.push-notification.error {
+  border-left-color: #f44336;
+}
+
+.push-notification.warning {
+  border-left-color: #ff9800;
+}
+
+.push-notification.info {
+  border-left-color: #2196F3;
+}
+
+.push-notification .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Stili per i badge di notifica */
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #f44336;
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Stili per i skeleton loader */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.skeleton-title {
+  height: 1.5em;
+  width: 60%;
+  margin-bottom: 1em;
+}
+
+.skeleton-button {
+  height: 2.5em;
+  width: 100px;
+  border-radius: 6px;
+}
+
+/* Stili per i badge di versione */
+.version-badge {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  z-index: 1000;
+}
+
+/* Stili per i watermark */
+.watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 10rem;
+  color: rgba(0,0,0,0.1);
+  pointer-events: none;
+  user-select: none;
+  z-index: -1;
+  white-space: nowrap;
+}
+
+/* Stili per i gradienti natalizi */
+.christmas-gradient {
+  background: linear-gradient(45deg, 
+    #c41e3a 0%, 
+    #2d5a27 25%, 
+    #ffeb3b 50%, 
+    #2d5a27 75%, 
+    #c41e3a 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* Stili per i bordi animati */
+.animated-border {
+  position: relative;
+  border: 2px solid transparent;
+  background: white;
+  background-clip: padding-box;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #c41e3a, #2d5a27, #ffeb3b, #2d5a27, #c41e3a);
+  background-size: 200% 200%;
+  animation: gradientShift 5s linear infinite;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+/* Stili per i pulsanti con icone */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.icon-button:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icon-button:active {
+  transform: translateY(0);
+}
+
+/* Stili per i badge di quantità */
+.quantity-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  background: #f44336;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Stili per i separatori */
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #666;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.separator:not(:empty)::before {
+  margin-right: 15px;
+}
+
+.separator:not(:empty)::after {
+  margin-left: 15px;
+}
+
+/* Stili per i badge di priorità */
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.priority-badge.high {
+  background: #ffebee;
+  color: #c41e3a;
+}
+
+.priority-badge.medium {
+  background: #fff3e0;
+  color: #ff9800;
+}
+
+.priority-badge.low {
+  background: #e8f5e8;
+  color: #2d5a27;
+}
+
+/* Stili per i marker di posizione */
+.position-marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.position-marker.first {
+  background: #ffd700;
+}
+
+.position-marker.second {
+  background: #c0c0c0;
+}
+
+.position-marker.third {
+  background: #cd7f32;
+}
+
+.position-marker.other {
+  background: #4CAF50;
+}
+
+/* Stili per i badge di stato avanzato */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.status-indicator .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-indicator.online .dot {
+  background: #4CAF50;
+  animation: pulseDot 2s infinite;
+}
+
+.status-indicator.offline .dot {
+  background: #9e9e9e;
+}
+
+.status-indicator.busy .dot {
+  background: #f44336;
+  animation: blinkDot 1s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes blinkDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Stili per i badge di tag */
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.tag-badge .close {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stili per i badge di livello */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(45deg, #4CAF50, #2d5a27);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+/* Stili per i badge di punteggio */
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: linear-gradient(45deg, #ffd700, #ff9800);
+  color: #333;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Stili per i badge di tempo */
+.time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #f5f5f5;
+  color: #666;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-family: monospace;
+}
+
+/* Stili per i badge di progresso circolare */
+.circular-progress {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.circular-progress svg {
+  transform: rotate(-90deg);
+}
+
+.circular-progress circle {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.circular-progress .bg {
+  stroke: #f5f5f5;
+}
+
+.circular-progress .progress {
+  stroke: #4CAF50;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--progress, 0));
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.circular-progress .text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Stili per i badge di avviso */
+.alert-badge {
+  position: relative;
+  display: inline-block;
+}
+
+.alert-badge .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #f44336;
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.7rem
